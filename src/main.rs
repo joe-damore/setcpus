@@ -31,6 +31,7 @@ fn main() {
     for i in 2..(count + 1) {
         let data = format!("{}", 1);
         let cpu_file = format!("{}/cpu{}/online", cpu_dir, i);
+        println!("{}", cpu_file);
         std::fs::write(cpu_file, data).expect("Failed to write CPU file");
     }
 

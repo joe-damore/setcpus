@@ -1,6 +1,20 @@
 fn main() {
-    let cpus = num_cpus::get();
+    let cpu_dir = "/sys/devices/system/cpu";
     let args: Vec<String> = std::env::args().collect();
+
+    let cpus = {
+        let mut found_cpus = 1;
+        loop {
+            let cpu_check_path = format!("{}/cpu{}/online", cpu_dir, (found_cpus + 1));
+            if std::path::Path::new(&cpu_check_path).exists() {
+                found_cpus += 1;
+            }
+            else {
+                break;
+            }
+        }
+        found_cpus
+    };
 
     let count_arg = match args.get(1) {
         Some(val) => val.clone(),
@@ -28,7 +42,6 @@ fn main() {
         std::process::exit(2);
     };
 
-    let cpu_dir = "/sys/devices/system/cpu";
     for i in 2..=count {
         let data = format!("{}", 1);
         let cpu_file = format!("{}/cpu{}/online", cpu_dir, i);

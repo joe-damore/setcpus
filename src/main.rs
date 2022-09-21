@@ -31,14 +31,14 @@ fn main() {
     let cpu_dir = "/sys/devices/system/cpu";
     for i in 2..=count {
         let data = format!("{}", 1);
-        let cpu_file = format!("{}/cpu{}/online ON", cpu_dir, i);
+        let cpu_file = format!("{}/cpu{}/online", cpu_dir, i);
         println!("{}: Enabled", cpu_file);
         std::fs::write(cpu_file, data).expect("Failed to write CPU file");
     }
 
     for i in usize::from(count)..cpus {
         let data = format!("{}", 0);
-        let cpu_file = format!("{}/cpu{}/online OFF", cpu_dir, i);
+        let cpu_file = format!("{}/cpu{}/online", cpu_dir, i);
         println!("{}: Disabled", cpu_file);
         std::fs::write(cpu_file, data).expect("Failed to write CPU file");
     }

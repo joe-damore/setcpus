@@ -42,7 +42,7 @@ fn main() {
         std::process::exit(2);
     };
 
-    for i in 2..=count {
+    for i in 1..count {
         let data = format!("{}", 1);
         let cpu_file = format!("{}/cpu{}/online", cpu_dir, i);
         println!("{}: Enabled", cpu_file);

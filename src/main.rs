@@ -5,7 +5,7 @@ fn main() {
     let cpus = {
         let mut found_cpus = 1;
         loop {
-            let cpu_check_path = format!("{}/cpu{}/online", cpu_dir, (found_cpus + 1));
+            let cpu_check_path = format!("{}/cpu{}/online", cpu_dir, found_cpus);
             if std::path::Path::new(&cpu_check_path).exists() {
                 found_cpus += 1;
             }

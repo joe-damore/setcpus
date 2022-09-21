@@ -25,20 +25,19 @@ fn main() {
 
     if usize::from(count) > cpus {
         println!("Cannot set to {} CPUs; up to {} CPUs can be enabled.", count, cpus);
+        std::process::exit(2);
     };
 
     let cpu_dir = "/sys/devices/system/cpu";
-    for i in 2..(count + 1) {
+    for i in 2..=count {
         let data = format!("{}", 1);
-        let cpu_file = format!("{}/cpu{}/online", cpu_dir, i);
-        println!("{}", cpu_file);
+        let cpu_file = format!("{}/cpu{}/online ON", cpu_dir, i);
         std::fs::write(cpu_file, data).expect("Failed to write CPU file");
     }
 
-    for i in usize::from(count + 1)..cpus {
+    for i in usize::from(count)..cpus {
         let data = format!("{}", 0);
-        let cpu_file = format!("{}/cpu{}/online", cpu_dir, i);
-        println!("{}", cpu_file);
+        let cpu_file = format!("{}/cpu{}/online OFF", cpu_dir, i);
         std::fs::write(cpu_file, data).expect("Failed to write CPU file");
     }
 }

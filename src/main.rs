@@ -37,6 +37,7 @@ fn main() {
     for i in usize::from(count + 1)..cpus {
         let data = format!("{}", 0);
         let cpu_file = format!("{}/cpu{}/online", cpu_dir, i);
+        println!("{}", cpu_file);
         std::fs::write(cpu_file, data).expect("Failed to write CPU file");
     }
 }
